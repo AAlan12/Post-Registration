@@ -37,11 +37,11 @@ app.post('/add', function(req,res){
     })
 })
 
-app.get('/delete/:id', function(req,res){
-    Post.destroy({where:{'id': req.params.id}}).then(function(){
+app.post('/delete/:id', function(req,res){
+    Post.destroy({where: {'id': req.params.id}}).then(function(req,res){
         res.send("post deleted successfully")
     }).catch(function(erro){
-        res.send("this post does not exist")
+        res.send("this post does not exist: "+erro)
     })
 })
 
