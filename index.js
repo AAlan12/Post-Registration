@@ -2,7 +2,8 @@ const express = require("express");
 const app = express();
 const handlebars = require('express-handlebars');
 const bodyParser = require('body-parser')
-const Post =  require('./models/Post')
+const Post =  require('./models/Post');
+const { where } = require("sequelize/types");
 
 
 
@@ -33,6 +34,14 @@ app.post('/add', function(req,res){
         res.redirect('/')
     }).catch(function(erro){
         res.send("there was an error: "+erro)
+    })
+})
+
+app.get('/delete/:id', function(req,res){
+    Post.destroy({where:{'id': req.params.id}}).then(function(){
+        res.send("post deleted successfully")
+    }).catch(function(erro){
+        res.send("this post does not exist")
     })
 })
 
